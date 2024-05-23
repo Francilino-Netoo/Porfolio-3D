@@ -247,7 +247,7 @@ const fanLight6 = new THREE.PointLight(0xffffff, 10, 0.4);
 fanLight6.position.set(0.28, 0.1, 0.71); // Ajuste a posição aqui
 scene.add(fanLight6);
 
-// add point light for text on walld
+// add point light for text on walld.
 const pointLight1 = new THREE.PointLight(0x32a0a8, 0, 1.5);
 const pointLight2 = new THREE.PointLight(0x32a0a8, 0, 1.5);
 const pointLight3 = new THREE.PointLight(0x32a0a8, 0, 1.5);
