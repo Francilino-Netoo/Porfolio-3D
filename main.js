@@ -7,7 +7,7 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
-/// VARIABLES
+/// VARIAVEIS
 let theme = "light";
 let bookCover = null;
 let lightSwitch = null;
@@ -42,7 +42,7 @@ let projectsCameraRot = {
   z: 0,
 };
 
-// SCENE & CAMERA
+// CAMERA
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
   120,
@@ -62,7 +62,6 @@ let defaultCamerRot = {
 };
 camera.position.set(defaultCameraPos.x, defaultCameraPos.y, defaultCameraPos.z);
 
-// RENDERER
 const renderer = new THREE.WebGLRenderer({
   canvas: canvas,
   antialias: true,
@@ -72,13 +71,8 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
-// STATS
-// const stats = new Stats();
-// document.querySelector('.experience').appendChild(stats.dom);
-
-// CONTROLS
 const controls = new OrbitControls(camera, renderer.domElement);
-// controls.enableDamping = true;
+
 controls.enablePan = false;
 controls.minDistance = 0.9;
 controls.maxDistance = 1.6;
@@ -89,8 +83,6 @@ controls.maxPolarAngle = Math.PI / 2;
 
 controls.update();
 
-// LOAD MODEL & ASSET
-// const loadingManager = new THREE.LoadingManager();
 const dracoLoader = new DRACOLoader();
 dracoLoader.setDecoderPath("draco/");
 const gltfLoader = new GLTFLoader();
@@ -98,22 +90,19 @@ gltfLoader.setDRACOLoader(dracoLoader);
 gltfLoader.load(
   "models/room.glb",
   function (room) {
-    // hide loader on loade
     loaderWrapper.style.display = "none";
 
-    // load video
     const video = document.createElement("video");
     video.src = "textures/arcane.mp4";
-    video.muted = true; // Ensure audio is not muted
+    video.muted = true;
     video.playsInline = true;
     video.autoplay = true;
     video.loop = true;
 
-    // Wait for user interaction to play the video (necessary for some browsers)
     video.addEventListener("canplaythrough", () => {
       video.play().catch((error) => {
         console.log("Error playing video:", error);
-        // Create a button to allow user interaction to play video
+
         const playButton = document.createElement("button");
         playButton.innerText = "Play Video";
         playButton.style.position = "absolute";
@@ -152,17 +141,15 @@ gltfLoader.load(
       }
 
       if (child.name === "Stand") {
-        // Adjust UV coordinates to flip the texture
         child.children[0].material = new THREE.MeshBasicMaterial({
           map: videoTexture,
-          side: THREE.DoubleSide, // Ensure the texture is visible from both sides
+          side: THREE.DoubleSide,
         });
 
-        // Apply a transformation to the UV coordinates to flip the texture
         child.children[0].geometry.attributes.uv.array.forEach(
           (uv, index, array) => {
             if (index % 2 === 0) {
-              array[index] = 1 - uv; // Flip U coordinate
+              array[index] = 1 - uv;
             }
           }
         );
@@ -171,7 +158,6 @@ gltfLoader.load(
         video.play();
       }
 
-      // transparent texture for glass
       if (child.name === "CPU") {
         child.children[0].material = new THREE.MeshPhysicalMaterial();
         child.children[0].material.roughness = 0;
@@ -194,7 +180,7 @@ gltfLoader.load(
       if (child.name === "Book") {
         bookCover = child.children[0];
 
-        // adding texture to book
+        // LIVRO
         const bookTexture = new THREE.TextureLoader().load(
           "textures/book-inner.jpg"
         );
@@ -214,7 +200,7 @@ gltfLoader.load(
     scene.add(room.scene);
     animate();
 
-    // add animation
+    // add animacao
     mixer = new THREE.AnimationMixer(room.scene);
     const clips = room.animations;
     clipNames.forEach((clipName) => {
@@ -227,7 +213,6 @@ gltfLoader.load(
 
     loadIntroText();
 
-    // add event listeners
     logoListener();
     aboutMenuListener();
     projectsMenuListener();
@@ -239,7 +224,7 @@ gltfLoader.load(
   }
 );
 
-// ADD LIGHT
+// adicionar luzes
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 const roomLight = new THREE.PointLight(0xffffff, 2.5, 4);
@@ -252,7 +237,7 @@ roomLight.shadow.camera.far = 2.5;
 // roomLight.shadow.camera.fov = 100;
 roomLight.shadow.bias = -1.002;
 scene.add(roomLight);
-// add light for pc fans
+// cores para fans
 const fanLight1 = new THREE.PointLight(0xeb3434, 40, 0.23);
 fanLight1.position.set(0.0, 0.25, 0.94); // Ajuste a posição aqui
 scene.add(fanLight1);
@@ -277,7 +262,6 @@ const fanLight6 = new THREE.PointLight(0xffffff, 10, 0.4);
 fanLight6.position.set(0.28, 0.1, 0.71); // Ajuste a posição aqui
 scene.add(fanLight6);
 
-// add point light for text on walld..
 const pointLight1 = new THREE.PointLight(0x32a0a8, 0, 1.5);
 const pointLight2 = new THREE.PointLight(0x32a0a8, 0, 1.5);
 const pointLight3 = new THREE.PointLight(0x32a0a8, 0, 1.5);
@@ -545,7 +529,6 @@ function resetCamera() {
   });
   gsap.delayedCall(1.5, enableOrbitControls);
 
-  // reset dimmed light for about display
   if (theme !== "dark") {
     gsap.to(roomLight, {
       intensity: 2.5,
@@ -589,7 +572,6 @@ function cameraToAbout() {
     delay: 4,
   });
 
-  // prevent about text clutter due to bright light
   if (theme !== "dark") {
     gsap.to(roomLight, {
       intensity: 1,
@@ -612,7 +594,6 @@ let aboutCameraRot = {
 function cameraToAbout1() {
   if (!bookCover) return;
 
-  // Debugging: Log the camera position and rotation before animation
   console.log("Camera Position Before Animation:", camera.position);
   console.log("Camera Rotation Before Animation:", camera.rotation);
 
@@ -630,11 +611,9 @@ function cameraToAbout1() {
     delay: 1.5,
   });
 
-  // Debugging: Log the camera position and rotation after animation
   console.log("Camera Position After Animation:", camera.position);
   console.log("Camera Rotation After Animation:", camera.rotation);
 
-  // prevent about text clutter due to bright light
   if (theme !== "dark") {
     gsap.to(roomLight, {
       intensity: 1,
@@ -671,7 +650,6 @@ function cameraToAbout2() {
     delay: 2.5,
   });
 
-  // prevent about text clutter due to bright light
   if (theme !== "dark") {
     gsap.to(roomLight, {
       intensity: 1,
@@ -691,7 +669,6 @@ function aboutMenuListener() {
 }
 
 function projectsMenuListener() {
-  // create project planes with textures
   projects.forEach((project, i) => {
     const colIndex = i % 3 === 0 ? 0 : 1;
     const rowIndex = Math.floor(i / 3);
@@ -713,7 +690,7 @@ function projectsMenuListener() {
       -0.5
     );
     projectPlane.scale.set(0, 0, 0);
-    // mesh & y vars needed for animation 0.08
+
     projects[i].mesh = projectPlane;
     projects[i].y = 0.3 - rowIndex * 0.9;
     scene.add(projectPlane);
@@ -735,7 +712,6 @@ function projectsMenuListener() {
       });
       gsap.delayedCall(1.5, enableCloseBtn);
 
-      // animate & show project items
       projects.forEach((project, i) => {
         project.mesh.scale.set(1, 1, 1);
         gsap.to(project.mesh.material, {
@@ -758,10 +734,8 @@ function init3DWorldClickListeners() {
   let intersects;
 
   window.addEventListener("click", function (e) {
-    // store value set to prevent multi time update in foreach loop
     const newTheme = theme === "light" ? "dark" : "light";
 
-    // prevent about focus on button click which are positioned above book in mobile view
     const closeBtn = document.getElementById("close-btn");
     const projectsBtn = document.getElementById("projects-menu");
     if (
@@ -877,21 +851,19 @@ function initResponsive(roomScene) {
 
         let mesh = new THREE.Mesh(material);
         mesh.position.z = 1;
-        mesh.scale.set(2, 2, 2); // Ajuste da escala
-        project.mesh = mesh; // Salve a malha na estrutura do projeto
-        roomScene.add(mesh); // Adicione a malha à cena
+        mesh.scale.set(2, 2, 2);
+        project.mesh = mesh;
+        roomScene.add(mesh);
       });
     });
   }
 }
 
-// close button
 document.getElementById("close-btn").addEventListener("click", (e) => {
   e.preventDefault();
   resetCamera();
 });
 
-// contact menu
 document.getElementById("contact-btn").addEventListener("click", (e) => {
   e.preventDefault();
   document
@@ -908,7 +880,6 @@ document.addEventListener("mouseup", (e) => {
   }
 });
 
-// update camera, renderer on resize
 window.addEventListener("resize", () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
