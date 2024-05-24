@@ -104,12 +104,30 @@ gltfLoader.load(
     // load video
     const video = document.createElement("video");
     video.src = "textures/arcane.mp4";
-    video.muted = true;
+    video.muted = true; // Ensure audio is not muted
     video.playsInline = true;
     video.autoplay = true;
     video.loop = true;
 
-    // create video texture
+    // Wait for user interaction to play the video (necessary for some browsers)
+    video.addEventListener("canplaythrough", () => {
+      video.play().catch((error) => {
+        console.log("Error playing video:", error);
+        // Create a button to allow user interaction to play video
+        const playButton = document.createElement("button");
+        playButton.innerText = "Play Video";
+        playButton.style.position = "absolute";
+        playButton.style.top = "10px";
+        playButton.style.left = "10px";
+        document.body.appendChild(playButton);
+        playButton.addEventListener("click", () => {
+          video.play();
+          document.body.removeChild(playButton);
+        });
+      });
+    });
+
+    // Create video texture
     const videoTexture = new THREE.VideoTexture(video);
     videoTexture.minFilter = THREE.NearestFilter;
     videoTexture.magFilter = THREE.NearestFilter;
@@ -128,16 +146,28 @@ gltfLoader.load(
           // disable shadow by book cover & switch btn
           if (innerChild.name !== "Book001" && innerChild.name !== "Switch") {
             innerChild.castShadow = true;
-            console.log("aqui porra");
           }
           innerChild.receiveShadow = true;
         });
       }
 
       if (child.name === "Stand") {
+        // Adjust UV coordinates to flip the texture
         child.children[0].material = new THREE.MeshBasicMaterial({
           map: videoTexture,
+          side: THREE.DoubleSide, // Ensure the texture is visible from both sides
         });
+
+        // Apply a transformation to the UV coordinates to flip the texture
+        child.children[0].geometry.attributes.uv.array.forEach(
+          (uv, index, array) => {
+            if (index % 2 === 0) {
+              array[index] = 1 - uv; // Flip U coordinate
+            }
+          }
+        );
+        child.children[0].geometry.attributes.uv.needsUpdate = true;
+
         video.play();
       }
 
