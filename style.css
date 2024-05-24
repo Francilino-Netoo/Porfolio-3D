@@ -437,7 +437,7 @@ footer {
   width: 100%;
   height: 100%;
   z-index: 200;
-  background-color: #fff;
+  background-color: #000;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -454,7 +454,7 @@ footer {
   content: "";
   width: 48px;
   height: 5px;
-  background: #f0808050;
+  background: #93f08083;
   position: absolute;
   top: 60px;
   left: 0;
@@ -466,7 +466,7 @@ footer {
   content: "";
   width: 100%;
   height: 100%;
-  background: #f08080;
+  background: #1fc219;
   position: absolute;
   top: 0;
   left: 0;
