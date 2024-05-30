@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     percentage++;
     loadingPercentage.textContent = percentage + "%";
     if (percentage < 100) {
-      setTimeout(updatePercentage, 10);
+      setTimeout(updatePercentage, 100);
     } else {
       loaderWrapper.style.display = "none";
       content.style.display = "block";
