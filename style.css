@@ -13,12 +13,10 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  /* light theme variables */
   --color-text-light: #242424;
   --color-background-light: #fff;
   --color-background-icon-light: #f4f4f4;
 
-  /* dark theme variables */
   --color-text-dark: #fff;
   --color-background-dark: #242424;
   --color-background-icon-dark: #454545;
@@ -342,12 +340,10 @@ footer {
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
 
-    /* light theme variables */
     --color-text-light: #242424;
     --color-background-light: #fff;
     --color-background-icon-light: #f4f4f4;
 
-    /* dark theme variables */
     --color-text-dark: #fff;
     --color-background-dark: #242424;
     --color-background-icon-dark: #454545;
@@ -413,12 +409,10 @@ footer {
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
 
-    /* light theme variables */
     --color-text-light: #242424;
     --color-background-light: #fff;
     --color-background-icon-light: #f4f4f4;
 
-    /* dark theme variables */
     --color-text-dark: #fff;
     --color-background-dark: #242424;
     --color-background-icon-dark: #454545;
@@ -441,6 +435,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
 
 .loader {
@@ -472,6 +467,13 @@ footer {
   left: 0;
   border-radius: 4px;
   animation: jump7456 0.5s linear infinite;
+}
+
+#loading-percentage {
+  color: #fff;
+  font-size: 24px;
+
+  margin-bottom: 500px;
 }
 
 @keyframes jump7456 {

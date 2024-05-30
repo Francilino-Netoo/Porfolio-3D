@@ -7,6 +7,26 @@ import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import { FontLoader } from "three/addons/loaders/FontLoader.js";
 import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 
+document.addEventListener("DOMContentLoaded", function () {
+  const loaderWrapper = document.getElementById("loader-wrapper");
+  const loadingPercentage = document.getElementById("loading-percentage");
+  const content = document.getElementById("content");
+  let percentage = 0;
+
+  function updatePercentage() {
+    percentage++;
+    loadingPercentage.textContent = percentage + "%";
+    if (percentage < 100) {
+      setTimeout(updatePercentage, 10);
+    } else {
+      loaderWrapper.style.display = "none";
+      content.style.display = "block";
+    }
+  }
+
+  updatePercentage();
+});
+
 /// VARIAVEIS
 let theme = "light";
 let bookCover = null;
