@@ -285,11 +285,23 @@ footer {
   border-radius: 50%;
 }
 
+#aguarde {
+  color: #fff;
+  font-size: 24px;
+  margin-bottom: 400px;
+  animation: blink 1s linear infinite; /* Adicionando animação de piscar */
+}
+
 @media (max-width: 992px) {
   header {
     padding: 6px 12px;
   }
-
+  #aguarde {
+    color: #fff;
+    font-size: 12px;
+    margin-bottom: 100px;
+    animation: blink 1s linear infinite; /* Adicionando animação de piscar */
+  }
   #logo img {
     width: 25px;
     height: 25px;
@@ -359,6 +371,13 @@ footer {
     padding: 6px 12px;
   }
 
+  #aguarde {
+    color: #fff;
+    font-size: 12px;
+    margin-bottom: 100px;
+    animation: blink 1s linear infinite; /* Adicionando animação de piscar */
+  }
+
   #logo img {
     width: 25px;
     height: 25px;
@@ -424,7 +443,6 @@ footer {
 }
 
 /* Loader */
-/* Loader */
 #loader-wrapper {
   position: fixed;
   top: 0;
@@ -470,17 +488,6 @@ footer {
   animation: jump7456 0.5s linear infinite;
 }
 
-#aguarde {
-  color: #fff;
-  font-size: 24px;
-  margin-bottom: 500px;
-  animation: blink 1s linear infinite; /* Adicionando animação de piscar */
-}
-
-#dots {
-  animation: moveDots 5s infinite; /* Adicionando animação de movimento dos pontos */
-}
-
 @keyframes jump7456 {
   15% {
     border-bottom-right-radius: 3px;
@@ -524,18 +531,5 @@ footer {
   }
   100% {
     opacity: 1;
-  }
-}
-
-@keyframes moveDots {
-  0%,
-  100% {
-    content: ".";
-  }
-  33% {
-    content: "..";
-  }
-  66% {
-    content: "...";
   }
 }
