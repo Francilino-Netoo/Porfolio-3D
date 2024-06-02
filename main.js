@@ -841,7 +841,7 @@ function initResponsive(roomScene) {
     };
     ///
     defaultCameraPos1 = {
-      x: 0.23,
+      x: 0.26,
       y: 0.32,
       z: 0.37,
     };

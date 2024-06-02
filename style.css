@@ -289,7 +289,7 @@ footer {
   color: #fff;
   font-size: 24px;
   margin-bottom: 400px;
-  animation: blink 1s linear infinite;
+  animation: blink 1s linear infinite; /* Adicionando animação de piscar */
 }
 
 @media (max-width: 992px) {
@@ -300,7 +300,7 @@ footer {
     color: #fff;
     font-size: 12px;
     margin-bottom: 100px;
-    animation: blink 1s linear infinite;
+    animation: blink 1s linear infinite; /* Adicionando animação de piscar */
   }
   #logo img {
     width: 25px;
@@ -375,7 +375,7 @@ footer {
     color: #fff;
     font-size: 12px;
     margin-bottom: 100px;
-    animation: blink 1s linear infinite;
+    animation: blink 1s linear infinite; /* Adicionando animação de piscar */
   }
 
   #logo img {
@@ -401,7 +401,7 @@ footer {
   }
 
   .side-nav span {
-    font-size: 11px;
+    font-size: 9px;
   }
   .side-nav h4 {
     font-size: 10px;
@@ -417,6 +417,78 @@ footer {
     font-family: "Poppins", sans-serif;
     font-size: 10px;
     line-height: 12px;
+    font-weight: 100;
+
+    color-scheme: light dark;
+    background-color: #fff;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+
+    --color-text-light: #242424;
+    --color-background-light: #fff;
+    --color-background-icon-light: #f4f4f4;
+
+    --color-text-dark: #fff;
+    --color-background-dark: #242424;
+    --color-background-icon-dark: #454545;
+  }
+}
+
+@media (max-width: 320px) {
+  header {
+    padding: 6px 12px;
+  }
+
+  #aguarde {
+    color: #fff;
+    font-size: 12px;
+    margin-bottom: 100px;
+    animation: blink 1s linear infinite; /* Adicionando animação de piscar */
+  }
+
+  #logo img {
+    width: 25px;
+    height: 25px;
+  }
+
+  .main-nav li a {
+    padding: 3px 5px;
+  }
+
+  .side-nav {
+    right: 10px;
+  }
+
+  footer {
+    font-size: 10px;
+  }
+
+  /* Ajustar fonte de todos os spans na side-nav */
+  .side-nav span {
+    font-size: 9px;
+  }
+
+  .side-nav span {
+    font-size: 8px;
+  }
+  .side-nav h4 {
+    font-size: 9px;
+  }
+
+  /* Ajustar tamanho dos SVGs na side-nav */
+  .side-nav svg {
+    width: 10px;
+    height: 10px;
+  }
+
+  :root {
+    font-family: "Poppins", sans-serif;
+    font-size: 9px;
+    line-height: 11px;
     font-weight: 100;
 
     color-scheme: light dark;
