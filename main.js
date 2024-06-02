@@ -92,7 +92,6 @@ gltfLoader.load(
   function (room) {
     loaderWrapper.style.display = "none";
 
-    // Primeiro vídeo
     const video1 = document.createElement("video");
     video1.src = "textures/arcane.mp4";
     video1.muted = true;
@@ -100,7 +99,6 @@ gltfLoader.load(
     video1.autoplay = true;
     video1.loop = true;
 
-    // Segundo vídeo
     const video2 = document.createElement("video");
     video2.src = "textures/arcane.mp4";
     video2.muted = true;
@@ -108,43 +106,36 @@ gltfLoader.load(
     video2.autoplay = true;
     video2.loop = true;
 
-    // Evento de carregamento do primeiro vídeo
     video1.addEventListener("canplaythrough", () => {
       video1.play().catch((error) => {
         console.log("Error playing video 1:", error);
       });
     });
 
-    // Evento de carregamento do segundo vídeo
     video2.addEventListener("canplaythrough", () => {
       video2.play().catch((error) => {
         console.log("Error playing video 2:", error);
       });
     });
 
-    // Textura do primeiro vídeo
     const videoTexture1 = new THREE.VideoTexture(video1);
     videoTexture1.minFilter = THREE.NearestFilter;
     videoTexture1.magFilter = THREE.NearestFilter;
     videoTexture1.generateMipmaps = false;
     videoTexture1.encoding = THREE.sRGBEncoding;
 
-    // Textura do segundo vídeo
     const videoTexture2 = new THREE.VideoTexture(video2);
     videoTexture2.minFilter = THREE.NearestFilter;
     videoTexture2.magFilter = THREE.NearestFilter;
     videoTexture2.generateMipmaps = false;
     videoTexture2.encoding = THREE.sRGBEncoding;
 
-    // Iteração sobre os objetos da cena
     room.scene.children.forEach((child) => {
-      // Desabilitar sombra nas paredes
       if (child.name !== "Wall") {
         child.castShadow = true;
       }
       child.receiveShadow = true;
 
-      // Configuração de sombra para outros objetos
       if (child.children) {
         child.children.forEach((innerChild) => {
           if (innerChild.name !== "Book001" && innerChild.name !== "Switch") {
@@ -156,39 +147,35 @@ gltfLoader.load(
 
       if (child.name === "TV1") {
         console.log(child.name);
-        // Supomos que o vídeo tenha proporção 16:9 (largura:altura)
+
         const screenWidth = 2;
         const screenHeight = 2;
 
-        // Ajustar a geometria da tela
         child.children[0].geometry = new THREE.PlaneGeometry(
           screenWidth,
           screenHeight
         );
 
         child.children[0].material = new THREE.MeshBasicMaterial({
-          map: videoTexture2, // Usando o segundo vídeo
+          map: videoTexture2,
           side: THREE.DoubleSide,
         });
 
-        // Ajuste das coordenadas UV e rotação do vídeo
         const uv = child.children[0].geometry.attributes.uv;
         for (let i = 0; i < uv.count; i++) {
           const u = uv.getX(i);
           const v = uv.getY(i);
-          uv.setXY(i, 1 - v, u); // Inverter horizontalmente e verticalmente
+          uv.setXY(i, 1 - v, u);
         }
         uv.needsUpdate = true;
       }
 
-      // Aplicação de textura de vídeo em outro objeto
       if (child.name === "Stand") {
         child.children[0].material = new THREE.MeshBasicMaterial({
-          map: videoTexture1, // Usando o primeiro vídeo
+          map: videoTexture1,
           side: THREE.DoubleSide,
         });
 
-        // Ajuste das coordenadas UV
         child.children[0].geometry.attributes.uv.array.forEach(
           (uv, index, array) => {
             if (index % 2 === 0) {
