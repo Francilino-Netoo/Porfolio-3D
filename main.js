@@ -840,26 +840,27 @@ function init3DWorldClickListeners() {
 function initResponsive(roomScene) {
   if (isMobile) {
     roomScene.scale.set(0.95, 0.95, 0.95);
+
     // Sobre mim
     aboutCameraPos = {
       x: 0.09,
-      y: 0.23,
+      y: 0.24,
       z: 0.8,
     };
     aboutCameraRot = {
-      x: -1.57,
+      x: -1.59,
       y: 0,
-      z: 1.87,
+      z: 1.9,
     };
     ///
     defaultCameraPos1 = {
-      x: 0.26,
-      y: 0.3,
+      x: 0.23,
+      y: 0.32,
       z: 0.37,
     };
     defaultCamerRot1 = {
       x: 0,
-      y: 1.5,
+      y: 1.54,
       z: 0,
     };
     // project
@@ -875,14 +876,14 @@ function initResponsive(roomScene) {
     };
     ////CUBULA
     aboutCameraPos = {
-      x: 0.09,
-      y: 0.1,
+      x: 0.08,
+      y: 0.09,
       z: 0.7,
     };
     aboutCameraRot = {
-      x: -2,
-      y: 0.85,
-      z: 2,
+      x: -2.53,
+      y: 1,
+      z: 2.6,
     };
     /////
     projects.forEach((project, i) => {
